@@ -16,10 +16,10 @@ BISON_OPTS    := -d
 FLEX          := flex
 
 # 测试相关
-TEST_DIR      := testdat
-RESULT_DIR    := results
+TEST_DIR      := tests
+RESULT_DIR    := tests/output
 TEST_SUFFIX   := .c
-OUT_SUFFIX    := .out
+OUT_SUFFIX    := .txt
 
 # 收集所有测试源和对应结果文件
 TEST_SOURCES  := $(wildcard $(TEST_DIR)/*$(TEST_SUFFIX))

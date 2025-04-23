@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>  // 变长参数函数 头文件
-
+#define MAX_NODE_NUM 5000
 // 行数
 extern int yylineno;
 // 文本
@@ -28,7 +28,7 @@ typedef struct ASTNode{
     };
 }* Ast,* tnode;
 
-// 构造抽象语法树(节点)
+// 构造抽象语法树
 Ast newAst(char* name,int num,...);
 // 先序遍历语法树
 void Preorder(Ast ast,int level);
@@ -36,8 +36,8 @@ void Preorder(Ast ast,int level);
 // 所有节点数量
 int nodeNum;
 // 存放所有节点
-tnode nodeList[5000];
-int nodeIsChild[5000];
+tnode nodeList[MAX_NODE_NUM];
+int nodeIsChild[MAX_NODE_NUM];
 // 设置节点打印状态
 void setChildTag(tnode node);
 

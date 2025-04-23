@@ -98,41 +98,41 @@ Stmt:Exp SEMI {CREATE_NODE($$,"Stmt",2,$1,$2);}
 	|Exp error {yyerror("Missing \";\"");}
     ;
 /*Local Definitions*/
-DefList:Def DefList{CREATE_NODE($$,"DefList",2,$1,$2); }
-	| {CREATE_NODE($$,"DefList",0,-1); }
+DefList:Def DefList{CREATE_NODE($$,"DefList",2,$1,$2);}
+	| {CREATE_NODE($$,"DefList",0,-1);}
 	;
-Def:Specifier DecList SEMI {CREATE_NODE($$,"Def",3,$1,$2,$3); }
+Def:Specifier DecList SEMI {CREATE_NODE($$,"Def",3,$1,$2,$3);}
 	//|Specifier error SEMI {yyerror("syntax error");}
 	|Specifier DecList error {yyerror("Missing \";\"");}
 	;
-DecList:Dec {CREATE_NODE($$,"DecList",1,$1); }
-	|Dec COMMA DecList {CREATE_NODE($$,"DecList",3,$1,$2,$3); }
+DecList:Dec {CREATE_NODE($$,"DecList",1,$1);}
+	|Dec COMMA DecList {CREATE_NODE($$,"DecList",3,$1,$2,$3);}
 	;
-Dec:VarDec {CREATE_NODE($$,"Dec",1,$1); }
-	|VarDec ASSIGNOP Exp {CREATE_NODE($$,"Dec",3,$1,$2,$3); }
+Dec:VarDec {CREATE_NODE($$,"Dec",1,$1);}
+	|VarDec ASSIGNOP Exp {CREATE_NODE($$,"Dec",3,$1,$2,$3);}
 	;
 /*Expressions*/
 Exp:Exp ASSIGNOP Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3);}
-        |Exp AND Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
-        |Exp OR Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
-        |Exp RELOP Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
-        |Exp PLUS Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
-        |Exp MINUS Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
-        |Exp STAR Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
-        |Exp DIV Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
-        |LP Exp RP{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
-        |MINUS Exp {CREATE_NODE($$,"Exp",2,$1,$2); }
-        |NOT Exp {CREATE_NODE($$,"Exp",2,$1,$2); }
-        |ID LP Args RP {CREATE_NODE($$,"Exp",4,$1,$2,$3,$4); }
-        |ID LP RP {CREATE_NODE($$,"Exp",3,$1,$2,$3); }
-        |Exp LB Exp RB {CREATE_NODE($$,"Exp",4,$1,$2,$3,$4); }
-        |Exp DOT ID {CREATE_NODE($$,"Exp",3,$1,$2,$3); }
-        |ID {CREATE_NODE($$,"Exp",1,$1); }
-        |INT {CREATE_NODE($$,"Exp",1,$1); }
-        |FLOAT{CREATE_NODE($$,"Exp",1,$1); }
+        |Exp AND Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3);}
+        |Exp OR Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3);}
+        |Exp RELOP Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3);}
+        |Exp PLUS Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3);}
+        |Exp MINUS Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3);}
+        |Exp STAR Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3);}
+        |Exp DIV Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3);}
+        |LP Exp RP{CREATE_NODE($$,"Exp",3,$1,$2,$3);}
+        |MINUS Exp {CREATE_NODE($$,"Exp",2,$1,$2);}
+        |NOT Exp {CREATE_NODE($$,"Exp",2,$1,$2);}
+        |ID LP Args RP {CREATE_NODE($$,"Exp",4,$1,$2,$3,$4);}
+        |ID LP RP {CREATE_NODE($$,"Exp",3,$1,$2,$3);}
+        |Exp LB Exp RB {CREATE_NODE($$,"Exp",4,$1,$2,$3,$4);}
+        |Exp DOT ID {CREATE_NODE($$,"Exp",3,$1,$2,$3);}
+        |ID {CREATE_NODE($$,"Exp",1,$1);}
+        |INT {CREATE_NODE($$,"Exp",1,$1);}
+        |FLOAT{CREATE_NODE($$,"Exp",1,$1);}
 		|Exp LB Exp error RB{yyerror("Missing \"]\"");}
         ;
-Args:Exp COMMA Args {CREATE_NODE($$,"Args",3,$1,$2,$3); }
-        |Exp {CREATE_NODE($$,"Args",1,$1); }
+Args:Exp COMMA Args {CREATE_NODE($$,"Args",3,$1,$2,$3);}
+        |Exp {CREATE_NODE($$,"Args",1,$1);}
         ;
 %%    
