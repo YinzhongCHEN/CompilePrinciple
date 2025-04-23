@@ -71,7 +71,7 @@
 #include<unistd.h>
 #include<stdio.h>   
 #include "synTree.h"
-  #define MAKE_NODE(DEST, LABEL, CNT, ...)      \
+  #define CREATE_NODE(DEST, LABEL, CNT, ...)      \
     do {                                        \
       DEST = newAst(LABEL, CNT, __VA_ARGS__);   \
       nodeList[nodeNum++] = DEST;               \
@@ -1453,49 +1453,49 @@ yyreduce:
     {
   case 2:
 #line 47 "syn.y"
-                   {MAKE_NODE((yyval.astNode),"Program",1,(yyvsp[0].astNode));}
+                   {CREATE_NODE((yyval.astNode),"Program",1,(yyvsp[0].astNode));}
 #line 1458 "syn.tab.c"
     break;
 
   case 3:
 #line 49 "syn.y"
-                             {MAKE_NODE((yyval.astNode),"ExtDefList",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));}
+                             {CREATE_NODE((yyval.astNode),"ExtDefList",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1464 "syn.tab.c"
     break;
 
   case 4:
 #line 50 "syn.y"
-          {(yyval.astNode)=newAst("ExtDefList",0,-1);nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+          {CREATE_NODE((yyval.astNode),"ExtDefList",0,-1);}
 #line 1470 "syn.tab.c"
     break;
 
   case 5:
 #line 52 "syn.y"
-                                    {(yyval.astNode)=newAst("ExtDef",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                                    {CREATE_NODE((yyval.astNode),"ExtDef",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1476 "syn.tab.c"
     break;
 
   case 6:
 #line 53 "syn.y"
-                        {(yyval.astNode)=newAst("ExtDef",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                        {CREATE_NODE((yyval.astNode),"ExtDef",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1482 "syn.tab.c"
     break;
 
   case 7:
 #line 54 "syn.y"
-                                        {(yyval.astNode)=newAst("ExtDef",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                                        {CREATE_NODE((yyval.astNode),"ExtDef",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1488 "syn.tab.c"
     break;
 
   case 8:
 #line 56 "syn.y"
-                  {(yyval.astNode)=newAst("ExtDecList",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                  {CREATE_NODE((yyval.astNode),"ExtDecList",1,(yyvsp[0].astNode));}
 #line 1494 "syn.tab.c"
     break;
 
   case 9:
 #line 57 "syn.y"
-                                 {(yyval.astNode)=newAst("ExtDecList",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                                 {CREATE_NODE((yyval.astNode),"ExtDecList",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1500 "syn.tab.c"
     break;
 
@@ -1507,55 +1507,55 @@ yyreduce:
 
   case 11:
 #line 61 "syn.y"
-               {(yyval.astNode)=newAst("Specifier",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+               {CREATE_NODE((yyval.astNode),"Specifier",1,(yyvsp[0].astNode));}
 #line 1512 "syn.tab.c"
     break;
 
   case 12:
 #line 62 "syn.y"
-                         {(yyval.astNode)=newAst("Specifier",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                         {CREATE_NODE((yyval.astNode),"Specifier",1,(yyvsp[0].astNode));}
 #line 1518 "syn.tab.c"
     break;
 
   case 13:
 #line 64 "syn.y"
-                                            {(yyval.astNode)=newAst("StructSpecifier",5,(yyvsp[-4].astNode),(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                                            {CREATE_NODE((yyval.astNode),"StructSpecifier",5,(yyvsp[-4].astNode),(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1524 "syn.tab.c"
     break;
 
   case 14:
 #line 65 "syn.y"
-                    {(yyval.astNode)=newAst("StructSpecifier",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                    {CREATE_NODE((yyval.astNode),"StructSpecifier",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1530 "syn.tab.c"
     break;
 
   case 15:
 #line 67 "syn.y"
-          {(yyval.astNode)=newAst("OptTag",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+          {CREATE_NODE((yyval.astNode),"OptTag",1,(yyvsp[0].astNode));}
 #line 1536 "syn.tab.c"
     break;
 
   case 16:
 #line 68 "syn.y"
-         {(yyval.astNode)=newAst("OptTag",0,-1);nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+         {CREATE_NODE((yyval.astNode),"OptTag",0,-1);}
 #line 1542 "syn.tab.c"
     break;
 
   case 17:
 #line 70 "syn.y"
-       {(yyval.astNode)=newAst("Tag",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+       {CREATE_NODE((yyval.astNode),"Tag",1,(yyvsp[0].astNode));}
 #line 1548 "syn.tab.c"
     break;
 
   case 18:
 #line 73 "syn.y"
-          {(yyval.astNode)=newAst("VarDec",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+          {CREATE_NODE((yyval.astNode),"VarDec",1,(yyvsp[0].astNode));}
 #line 1554 "syn.tab.c"
     break;
 
   case 19:
 #line 74 "syn.y"
-                          {(yyval.astNode)=newAst("VarDec",4,(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                          {CREATE_NODE((yyval.astNode),"VarDec",4,(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1560 "syn.tab.c"
     break;
 
@@ -1567,13 +1567,13 @@ yyreduce:
 
   case 21:
 #line 77 "syn.y"
-                        {(yyval.astNode)=newAst("FunDec",4,(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                        {CREATE_NODE((yyval.astNode),"FunDec",4,(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1572 "syn.tab.c"
     break;
 
   case 22:
 #line 78 "syn.y"
-                  {(yyval.astNode)=newAst("FunDec",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                  {CREATE_NODE((yyval.astNode),"FunDec",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1578 "syn.tab.c"
     break;
 
@@ -1585,73 +1585,73 @@ yyreduce:
 
   case 24:
 #line 81 "syn.y"
-                               {(yyval.astNode)=newAst("VarList",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                               {CREATE_NODE((yyval.astNode),"VarList",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1590 "syn.tab.c"
     break;
 
   case 25:
 #line 82 "syn.y"
-                  {(yyval.astNode)=newAst("VarList",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                  {CREATE_NODE((yyval.astNode),"VarList",1,(yyvsp[0].astNode));}
 #line 1596 "syn.tab.c"
     break;
 
   case 26:
 #line 84 "syn.y"
-                          {(yyval.astNode)=newAst("ParamDec",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                          {CREATE_NODE((yyval.astNode),"ParamDec",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1602 "syn.tab.c"
     break;
 
   case 27:
 #line 87 "syn.y"
-                              {(yyval.astNode)=newAst("CompSt",4,(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                              {CREATE_NODE((yyval.astNode),"CompSt",4,(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1608 "syn.tab.c"
     break;
 
   case 28:
 #line 89 "syn.y"
-                      {(yyval.astNode)=newAst("StmtList",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                      {CREATE_NODE((yyval.astNode),"StmtList",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1614 "syn.tab.c"
     break;
 
   case 29:
 #line 90 "syn.y"
-          {(yyval.astNode)=newAst("StmtList",0,-1);nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+          {CREATE_NODE((yyval.astNode),"StmtList",0,-1);}
 #line 1620 "syn.tab.c"
     break;
 
   case 30:
 #line 92 "syn.y"
-              {(yyval.astNode)=newAst("Stmt",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+              {CREATE_NODE((yyval.astNode),"Stmt",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1626 "syn.tab.c"
     break;
 
   case 31:
 #line 93 "syn.y"
-                {(yyval.astNode)=newAst("Stmt",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                {CREATE_NODE((yyval.astNode),"Stmt",1,(yyvsp[0].astNode));}
 #line 1632 "syn.tab.c"
     break;
 
   case 32:
 #line 94 "syn.y"
-                         {(yyval.astNode)=newAst("Stmt",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                         {CREATE_NODE((yyval.astNode),"Stmt",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1638 "syn.tab.c"
     break;
 
   case 33:
 #line 95 "syn.y"
-                                             {(yyval.astNode)=newAst("Stmt",5,(yyvsp[-4].astNode),(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                                             {CREATE_NODE((yyval.astNode),"Stmt",5,(yyvsp[-4].astNode),(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1644 "syn.tab.c"
     break;
 
   case 34:
 #line 96 "syn.y"
-                                 {(yyval.astNode)=newAst("Stmt",7,(yyvsp[-6].astNode),(yyvsp[-5].astNode),(yyvsp[-4].astNode),(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                                 {CREATE_NODE((yyval.astNode),"Stmt",7,(yyvsp[-6].astNode),(yyvsp[-5].astNode),(yyvsp[-4].astNode),(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1650 "syn.tab.c"
     break;
 
   case 35:
 #line 97 "syn.y"
-                              {(yyval.astNode)=newAst("Stmt",5,(yyvsp[-4].astNode),(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                              {CREATE_NODE((yyval.astNode),"Stmt",5,(yyvsp[-4].astNode),(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1656 "syn.tab.c"
     break;
 
@@ -1663,19 +1663,19 @@ yyreduce:
 
   case 37:
 #line 101 "syn.y"
-                   {(yyval.astNode)=newAst("DefList",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                   {CREATE_NODE((yyval.astNode),"DefList",2,(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1668 "syn.tab.c"
     break;
 
   case 38:
 #line 102 "syn.y"
-          {(yyval.astNode)=newAst("DefList",0,-1);nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+          {CREATE_NODE((yyval.astNode),"DefList",0,-1); }
 #line 1674 "syn.tab.c"
     break;
 
   case 39:
 #line 104 "syn.y"
-                           {(yyval.astNode)=newAst("Def",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                           {CREATE_NODE((yyval.astNode),"Def",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1680 "syn.tab.c"
     break;
 
@@ -1687,133 +1687,133 @@ yyreduce:
 
   case 41:
 #line 108 "syn.y"
-            {(yyval.astNode)=newAst("DecList",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+            {CREATE_NODE((yyval.astNode),"DecList",1,(yyvsp[0].astNode)); }
 #line 1692 "syn.tab.c"
     break;
 
   case 42:
 #line 109 "syn.y"
-                           {(yyval.astNode)=newAst("DecList",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                           {CREATE_NODE((yyval.astNode),"DecList",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1698 "syn.tab.c"
     break;
 
   case 43:
 #line 111 "syn.y"
-           {(yyval.astNode)=newAst("Dec",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+           {CREATE_NODE((yyval.astNode),"Dec",1,(yyvsp[0].astNode)); }
 #line 1704 "syn.tab.c"
     break;
 
   case 44:
 #line 112 "syn.y"
-                             {(yyval.astNode)=newAst("Dec",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                             {CREATE_NODE((yyval.astNode),"Dec",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1710 "syn.tab.c"
     break;
 
   case 45:
 #line 115 "syn.y"
-                    {(yyval.astNode)=newAst("Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                    {CREATE_NODE((yyval.astNode),"Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));}
 #line 1716 "syn.tab.c"
     break;
 
   case 46:
 #line 116 "syn.y"
-                    {(yyval.astNode)=newAst("Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                    {CREATE_NODE((yyval.astNode),"Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1722 "syn.tab.c"
     break;
 
   case 47:
 #line 117 "syn.y"
-                   {(yyval.astNode)=newAst("Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                   {CREATE_NODE((yyval.astNode),"Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1728 "syn.tab.c"
     break;
 
   case 48:
 #line 118 "syn.y"
-                      {(yyval.astNode)=newAst("Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                      {CREATE_NODE((yyval.astNode),"Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1734 "syn.tab.c"
     break;
 
   case 49:
 #line 119 "syn.y"
-                     {(yyval.astNode)=newAst("Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                     {CREATE_NODE((yyval.astNode),"Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1740 "syn.tab.c"
     break;
 
   case 50:
 #line 120 "syn.y"
-                      {(yyval.astNode)=newAst("Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                      {CREATE_NODE((yyval.astNode),"Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1746 "syn.tab.c"
     break;
 
   case 51:
 #line 121 "syn.y"
-                     {(yyval.astNode)=newAst("Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                     {CREATE_NODE((yyval.astNode),"Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1752 "syn.tab.c"
     break;
 
   case 52:
 #line 122 "syn.y"
-                    {(yyval.astNode)=newAst("Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                    {CREATE_NODE((yyval.astNode),"Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1758 "syn.tab.c"
     break;
 
   case 53:
 #line 123 "syn.y"
-                  {(yyval.astNode)=newAst("Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                  {CREATE_NODE((yyval.astNode),"Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1764 "syn.tab.c"
     break;
 
   case 54:
 #line 124 "syn.y"
-                   {(yyval.astNode)=newAst("Exp",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                   {CREATE_NODE((yyval.astNode),"Exp",2,(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1770 "syn.tab.c"
     break;
 
   case 55:
 #line 125 "syn.y"
-                 {(yyval.astNode)=newAst("Exp",2,(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                 {CREATE_NODE((yyval.astNode),"Exp",2,(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1776 "syn.tab.c"
     break;
 
   case 56:
 #line 126 "syn.y"
-                       {(yyval.astNode)=newAst("Exp",4,(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                       {CREATE_NODE((yyval.astNode),"Exp",4,(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1782 "syn.tab.c"
     break;
 
   case 57:
 #line 127 "syn.y"
-                  {(yyval.astNode)=newAst("Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                  {CREATE_NODE((yyval.astNode),"Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1788 "syn.tab.c"
     break;
 
   case 58:
 #line 128 "syn.y"
-                       {(yyval.astNode)=newAst("Exp",4,(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                       {CREATE_NODE((yyval.astNode),"Exp",4,(yyvsp[-3].astNode),(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1794 "syn.tab.c"
     break;
 
   case 59:
 #line 129 "syn.y"
-                    {(yyval.astNode)=newAst("Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                    {CREATE_NODE((yyval.astNode),"Exp",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1800 "syn.tab.c"
     break;
 
   case 60:
 #line 130 "syn.y"
-            {(yyval.astNode)=newAst("Exp",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+            {CREATE_NODE((yyval.astNode),"Exp",1,(yyvsp[0].astNode)); }
 #line 1806 "syn.tab.c"
     break;
 
   case 61:
 #line 131 "syn.y"
-             {(yyval.astNode)=newAst("Exp",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+             {CREATE_NODE((yyval.astNode),"Exp",1,(yyvsp[0].astNode)); }
 #line 1812 "syn.tab.c"
     break;
 
   case 62:
 #line 132 "syn.y"
-              {(yyval.astNode)=newAst("Exp",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+              {CREATE_NODE((yyval.astNode),"Exp",1,(yyvsp[0].astNode)); }
 #line 1818 "syn.tab.c"
     break;
 
@@ -1825,13 +1825,13 @@ yyreduce:
 
   case 64:
 #line 135 "syn.y"
-                    {(yyval.astNode)=newAst("Args",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+                    {CREATE_NODE((yyval.astNode),"Args",3,(yyvsp[-2].astNode),(yyvsp[-1].astNode),(yyvsp[0].astNode)); }
 #line 1830 "syn.tab.c"
     break;
 
   case 65:
 #line 136 "syn.y"
-             {(yyval.astNode)=newAst("Args",1,(yyvsp[0].astNode));nodeList[nodeNum]=(yyval.astNode);nodeNum++;}
+             {CREATE_NODE((yyval.astNode),"Args",1,(yyvsp[0].astNode)); }
 #line 1836 "syn.tab.c"
     break;
 

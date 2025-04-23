@@ -2,7 +2,7 @@
 #include<unistd.h>
 #include<stdio.h>   
 #include "synTree.h"
-  #define MAKE_NODE(DEST, LABEL, CNT, ...)      \
+  #define CREATE_NODE(DEST, LABEL, CNT, ...)      \
     do {                                        \
       DEST = newAst(LABEL, CNT, __VA_ARGS__);   \
       nodeList[nodeNum++] = DEST;               \
@@ -44,95 +44,95 @@ int yylex(void);
 
 %%
 /*High-level Definitions*/
-Program:ExtDefList {MAKE_NODE($$,"Program",1,$1);}
+Program:ExtDefList {CREATE_NODE($$,"Program",1,$1);}
     ;
-ExtDefList:ExtDef ExtDefList {MAKE_NODE($$,"ExtDefList",2,$1,$2);}
-	| {$$=newAst("ExtDefList",0,-1);nodeList[nodeNum]=$$;nodeNum++;}
+ExtDefList:ExtDef ExtDefList {CREATE_NODE($$,"ExtDefList",2,$1,$2);}
+	| {CREATE_NODE($$,"ExtDefList",0,-1);}
 	;
-ExtDef:Specifier ExtDecList SEMI    {$$=newAst("ExtDef",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}    
-	|Specifier SEMI	{$$=newAst("ExtDef",2,$1,$2);nodeList[nodeNum]=$$;nodeNum++;}
-	|Specifier FunDec CompSt	{$$=newAst("ExtDef",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
+ExtDef:Specifier ExtDecList SEMI    {CREATE_NODE($$,"ExtDef",3,$1,$2,$3);}    
+	|Specifier SEMI	{CREATE_NODE($$,"ExtDef",2,$1,$2);}
+	|Specifier FunDec CompSt	{CREATE_NODE($$,"ExtDef",3,$1,$2,$3);}
 	;
-ExtDecList:VarDec {$$=newAst("ExtDecList",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
-	|VarDec COMMA ExtDecList {$$=newAst("ExtDecList",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
+ExtDecList:VarDec {CREATE_NODE($$,"ExtDecList",1,$1);}
+	|VarDec COMMA ExtDecList {CREATE_NODE($$,"ExtDecList",3,$1,$2,$3);}
     |VarDec error ExtDecList {yyerror("text");}/*期望出现逗号但未出现*/
 	;
 /*Specifier*/
-Specifier:TYPE {$$=newAst("Specifier",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
-	|StructSpecifier {$$=newAst("Specifier",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
+Specifier:TYPE {CREATE_NODE($$,"Specifier",1,$1);}
+	|StructSpecifier {CREATE_NODE($$,"Specifier",1,$1);}
 	;
-StructSpecifier:STRUCT OptTag LC DefList RC {$$=newAst("StructSpecifier",5,$1,$2,$3,$4,$5);nodeList[nodeNum]=$$;nodeNum++;}
-	|STRUCT Tag {$$=newAst("StructSpecifier",2,$1,$2);nodeList[nodeNum]=$$;nodeNum++;}
+StructSpecifier:STRUCT OptTag LC DefList RC {CREATE_NODE($$,"StructSpecifier",5,$1,$2,$3,$4,$5);}
+	|STRUCT Tag {CREATE_NODE($$,"StructSpecifier",2,$1,$2);}
 	;
-OptTag:ID {$$=newAst("OptTag",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
-	|{$$=newAst("OptTag",0,-1);nodeList[nodeNum]=$$;nodeNum++;}
+OptTag:ID {CREATE_NODE($$,"OptTag",1,$1);}
+	|{CREATE_NODE($$,"OptTag",0,-1);}
 	;
-Tag:ID {$$=newAst("Tag",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
+Tag:ID {CREATE_NODE($$,"Tag",1,$1);}
 	;
 /*Declarators*/
-VarDec:ID {$$=newAst("VarDec",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
-	|VarDec LB INT RB {$$=newAst("VarDec",4,$1,$2,$3,$4);nodeList[nodeNum]=$$;nodeNum++;}
+VarDec:ID {CREATE_NODE($$,"VarDec",1,$1);}
+	|VarDec LB INT RB {CREATE_NODE($$,"VarDec",4,$1,$2,$3,$4);}
 	|VarDec LB error RB {yyerror("int");}/*数组变量 应该出现整数 但未出现整数*/
     ;
-FunDec:ID LP VarList RP {$$=newAst("FunDec",4,$1,$2,$3,$4);nodeList[nodeNum]=$$;nodeNum++;}
-	|ID LP RP {$$=newAst("FunDec",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
+FunDec:ID LP VarList RP {CREATE_NODE($$,"FunDec",4,$1,$2,$3,$4);}
+	|ID LP RP {CREATE_NODE($$,"FunDec",3,$1,$2,$3);}
     |ID LP error RP {yyerror("VarList");}/*解析函数声明的形参列表遇到错误*/
 	;
-VarList:ParamDec COMMA VarList {$$=newAst("VarList",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-	|ParamDec {$$=newAst("VarList",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
+VarList:ParamDec COMMA VarList {CREATE_NODE($$,"VarList",3,$1,$2,$3);}
+	|ParamDec {CREATE_NODE($$,"VarList",1,$1);}
 	;
-ParamDec:Specifier VarDec {$$=newAst("ParamDec",2,$1,$2);nodeList[nodeNum]=$$;nodeNum++;}
+ParamDec:Specifier VarDec {CREATE_NODE($$,"ParamDec",2,$1,$2);}
     ;
 /*Statement*/
-CompSt:LC DefList StmtList RC {$$=newAst("CompSt",4,$1,$2,$3,$4);nodeList[nodeNum]=$$;nodeNum++;}
+CompSt:LC DefList StmtList RC {CREATE_NODE($$,"CompSt",4,$1,$2,$3,$4);}
 	;
-StmtList:Stmt StmtList{$$=newAst("StmtList",2,$1,$2);nodeList[nodeNum]=$$;nodeNum++;}
-	| {$$=newAst("StmtList",0,-1);nodeList[nodeNum]=$$;nodeNum++;}
+StmtList:Stmt StmtList{CREATE_NODE($$,"StmtList",2,$1,$2);}
+	| {CREATE_NODE($$,"StmtList",0,-1);}
 	;
-Stmt:Exp SEMI {$$=newAst("Stmt",2,$1,$2);nodeList[nodeNum]=$$;nodeNum++;}
-	|CompSt {$$=newAst("Stmt",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
-	|RETURN Exp SEMI {$$=newAst("Stmt",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-    |IF LP Exp RP Stmt %prec LOWER_THAN_ELSE {$$=newAst("Stmt",5,$1,$2,$3,$4,$5);nodeList[nodeNum]=$$;nodeNum++;}
-    |IF LP Exp RP Stmt ELSE Stmt {$$=newAst("Stmt",7,$1,$2,$3,$4,$5,$6,$7);nodeList[nodeNum]=$$;nodeNum++;}
-	|WHILE LP Exp RP Stmt {$$=newAst("Stmt",5,$1,$2,$3,$4,$5);nodeList[nodeNum]=$$;nodeNum++;}
+Stmt:Exp SEMI {CREATE_NODE($$,"Stmt",2,$1,$2);}
+	|CompSt {CREATE_NODE($$,"Stmt",1,$1);}
+	|RETURN Exp SEMI {CREATE_NODE($$,"Stmt",3,$1,$2,$3);}
+    |IF LP Exp RP Stmt %prec LOWER_THAN_ELSE {CREATE_NODE($$,"Stmt",5,$1,$2,$3,$4,$5);}
+    |IF LP Exp RP Stmt ELSE Stmt {CREATE_NODE($$,"Stmt",7,$1,$2,$3,$4,$5,$6,$7);}
+	|WHILE LP Exp RP Stmt {CREATE_NODE($$,"Stmt",5,$1,$2,$3,$4,$5);}
 	|Exp error {yyerror("Missing \";\"");}
     ;
 /*Local Definitions*/
-DefList:Def DefList{$$=newAst("DefList",2,$1,$2);nodeList[nodeNum]=$$;nodeNum++;}
-	| {$$=newAst("DefList",0,-1);nodeList[nodeNum]=$$;nodeNum++;}
+DefList:Def DefList{CREATE_NODE($$,"DefList",2,$1,$2); }
+	| {CREATE_NODE($$,"DefList",0,-1); }
 	;
-Def:Specifier DecList SEMI {$$=newAst("Def",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
+Def:Specifier DecList SEMI {CREATE_NODE($$,"Def",3,$1,$2,$3); }
 	//|Specifier error SEMI {yyerror("syntax error");}
 	|Specifier DecList error {yyerror("Missing \";\"");}
 	;
-DecList:Dec {$$=newAst("DecList",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
-	|Dec COMMA DecList {$$=newAst("DecList",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
+DecList:Dec {CREATE_NODE($$,"DecList",1,$1); }
+	|Dec COMMA DecList {CREATE_NODE($$,"DecList",3,$1,$2,$3); }
 	;
-Dec:VarDec {$$=newAst("Dec",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
-	|VarDec ASSIGNOP Exp {$$=newAst("Dec",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
+Dec:VarDec {CREATE_NODE($$,"Dec",1,$1); }
+	|VarDec ASSIGNOP Exp {CREATE_NODE($$,"Dec",3,$1,$2,$3); }
 	;
 /*Expressions*/
-Exp:Exp ASSIGNOP Exp{$$=newAst("Exp",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |Exp AND Exp{$$=newAst("Exp",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |Exp OR Exp{$$=newAst("Exp",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |Exp RELOP Exp{$$=newAst("Exp",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |Exp PLUS Exp{$$=newAst("Exp",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |Exp MINUS Exp{$$=newAst("Exp",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |Exp STAR Exp{$$=newAst("Exp",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |Exp DIV Exp{$$=newAst("Exp",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |LP Exp RP{$$=newAst("Exp",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |MINUS Exp {$$=newAst("Exp",2,$1,$2);nodeList[nodeNum]=$$;nodeNum++;}
-        |NOT Exp {$$=newAst("Exp",2,$1,$2);nodeList[nodeNum]=$$;nodeNum++;}
-        |ID LP Args RP {$$=newAst("Exp",4,$1,$2,$3,$4);nodeList[nodeNum]=$$;nodeNum++;}
-        |ID LP RP {$$=newAst("Exp",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |Exp LB Exp RB {$$=newAst("Exp",4,$1,$2,$3,$4);nodeList[nodeNum]=$$;nodeNum++;}
-        |Exp DOT ID {$$=newAst("Exp",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |ID {$$=newAst("Exp",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
-        |INT {$$=newAst("Exp",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
-        |FLOAT{$$=newAst("Exp",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
+Exp:Exp ASSIGNOP Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3);}
+        |Exp AND Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
+        |Exp OR Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
+        |Exp RELOP Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
+        |Exp PLUS Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
+        |Exp MINUS Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
+        |Exp STAR Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
+        |Exp DIV Exp{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
+        |LP Exp RP{CREATE_NODE($$,"Exp",3,$1,$2,$3); }
+        |MINUS Exp {CREATE_NODE($$,"Exp",2,$1,$2); }
+        |NOT Exp {CREATE_NODE($$,"Exp",2,$1,$2); }
+        |ID LP Args RP {CREATE_NODE($$,"Exp",4,$1,$2,$3,$4); }
+        |ID LP RP {CREATE_NODE($$,"Exp",3,$1,$2,$3); }
+        |Exp LB Exp RB {CREATE_NODE($$,"Exp",4,$1,$2,$3,$4); }
+        |Exp DOT ID {CREATE_NODE($$,"Exp",3,$1,$2,$3); }
+        |ID {CREATE_NODE($$,"Exp",1,$1); }
+        |INT {CREATE_NODE($$,"Exp",1,$1); }
+        |FLOAT{CREATE_NODE($$,"Exp",1,$1); }
 		|Exp LB Exp error RB{yyerror("Missing \"]\"");}
         ;
-Args:Exp COMMA Args {$$=newAst("Args",3,$1,$2,$3);nodeList[nodeNum]=$$;nodeNum++;}
-        |Exp {$$=newAst("Args",1,$1);nodeList[nodeNum]=$$;nodeNum++;}
+Args:Exp COMMA Args {CREATE_NODE($$,"Args",3,$1,$2,$3); }
+        |Exp {CREATE_NODE($$,"Args",1,$1); }
         ;
 %%    
