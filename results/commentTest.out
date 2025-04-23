@@ -1,0 +1,4 @@
+Error type A at line 14: MALFORMED_COMMENT "*/"
+Error type A at line 16: NESTED_COMMENT "/*"
+Error type A at line 16: NESTED_COMMENT "/*"
+Error type A at line 24: UNTERMINATED_COMMENT (started at line 20)
