@@ -1,71 +1,67 @@
 # **********************************************************
-# Makefile: Build (Bison→Flex→GCC) + Run testdat/*.c → results
+# Makefile: Build (Bison→Flex→GCC) + Run tests/**/*.c → results/**
 # **********************************************************
 
-# —— 可调变量 —— 
-BISON_SRC     := syn.y
-FLEX_SRC      := lex.l
-C_SRC         := synTree.c
-TARGET        := cminus
+# ---------- 源文件 / 目标 ----------
+BISON_SRC   := syn.y
+FLEX_SRC    := lex.l
+C_SRC       := synTree.c
+TARGET      := cminus
 
-CC            := gcc
-LIBS          := -lfl
+CC          := gcc
+LIBS        := -lfl
+BISON       := bison
+BISON_OPTS  := -d
+FLEX        := flex
 
-BISON         := bison
-BISON_OPTS    := -d
-FLEX          := flex
+# ---------- 测试目录 ----------
+TEST_DIR    := tests
+RESULT_DIR  := results
+TEST_EXT    := .c
+OUT_EXT     := .txt
 
-# 测试相关
-TEST_DIR      := tests
-RESULT_DIR    := tests/output
-TEST_SUFFIX   := .c
-OUT_SUFFIX    := .txt
+# ---------- 收集全部 .c 测试文件 ----------
+TEST_SRC  := $(shell find $(TEST_DIR) -type f -name '*$(TEST_EXT)')
+TEST_OUT  := $(patsubst $(TEST_DIR)/%$(TEST_EXT),\
+                        $(RESULT_DIR)/%$(OUT_EXT),\
+                        $(TEST_SRC))
 
-# 收集所有测试源和对应结果文件
-TEST_SOURCES  := $(wildcard $(TEST_DIR)/*$(TEST_SUFFIX))
-TEST_RESULTS  := $(patsubst $(TEST_DIR)/%$(TEST_SUFFIX),$(RESULT_DIR)/%$(OUT_SUFFIX),$(TEST_SOURCES))
-
-# —— 伪目标 —— 
+# ---------- 伪目标 ----------
 .PHONY: all build test clean
 
-# 默认目标：只做编译
-all: build
+all: build                     # 默认只编译
 
-# ---- 构建步骤 ----
+# ---------------- 构建 ----------------
 build: $(TARGET)
 
-# Bison 生成 syn.tab.c/h
 syn.tab.c syn.tab.h: $(BISON_SRC)
 	$(BISON) $(BISON_OPTS) $<
 
-# Flex 生成 lex.yy.c
 lex.yy.c: $(FLEX_SRC)
 	$(FLEX) $<
 
-# 最终链接
 $(TARGET): syn.tab.c lex.yy.c $(C_SRC)
 	$(CC) -o $@ syn.tab.c lex.yy.c $(C_SRC) $(LIBS)
 
-# ---- 测试步骤 ----
-# 先确保 build，再为每个测试源生成结果文件
-test: build $(TEST_RESULTS)
+# ---------------- 测试 ----------------
+test: build $(TEST_OUT)
 	@echo
-	@echo "🎉 All tests finished. See $(RESULT_DIR)/ for outputs."
+	@echo "🎉  All tests finished.  See '$(RESULT_DIR)/' for outputs."
 
-# 运行单个测试
-# e.g. testdat/foo.c → results/foo.out
-$(RESULT_DIR)/%$(OUT_SUFFIX): $(TEST_DIR)/%$(TEST_SUFFIX) | $(RESULT_DIR)
-	@echo "▶ Running test: $<"
-	@./$(TARGET) $< > $@ 2>&1
-	@echo "   ↳ output → $@"
-
-# 确保 results 目录存在
+# ★★★★★ 关键：先保证根目录存在 ★★★★★
 $(RESULT_DIR):
-	mkdir -p $@
+	@mkdir -p $@
 
-# ---- 清理 ----
+# results/…/foo.txt ← tests/…/foo.c
+# “| $(RESULT_DIR)” 表示 **顺序限定**：先建根目录再执行命令
+results/%.txt : tests/%.c | $(RESULT_DIR)
+	@echo "▶ $<"
+	@mkdir -p $(dir $@)
+	@./$(TARGET) $< > $@ 2>&1
+	@echo "   ↳ $@"
+
+# ---------------- 清理 ----------------
 clean:
-	@echo "🧹 Cleaning up..."
-	rm -f syn.tab.[ch] lex.yy.c $(TARGET)
-	rm -rf $(RESULT_DIR)
-
+	@echo "🧹  Cleaning..."
+	@rm -f syn.tab.[ch] lex.yy.c $(TARGET)
+	@rm -rf $(RESULT_DIR)

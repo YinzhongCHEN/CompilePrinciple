@@ -1,0 +1,84 @@
+Program (1)
+  ExtDefList (1)
+    ExtDef (1)
+      Specifier (1)
+        TYPE: int
+      FunDec (1)
+        ID: main
+        LP
+        RP
+      CompSt (1)
+        LC
+        DefList
+        StmtList (2)
+          Stmt (2)
+            CompSt (2)
+              LC
+              DefList (3)
+                Def (3)
+                  Specifier (3)
+                    TYPE: int
+                  DecList (3)
+                    Dec (3)
+                      VarDec (3)
+                        ID: a
+                    COMMA
+                    DecList (3)
+                      Dec (3)
+                        VarDec (3)
+                          ID: b
+                        ASSIGNOP
+                        Exp (3)
+                          INT: 5
+                      COMMA
+                      DecList (3)
+                        Dec (3)
+                          VarDec (3)
+                            VarDec (3)
+                              ID: c
+                            LB
+                            INT: 3
+                            RB
+                  SEMI
+                DefList (4)
+                  Def (4)
+                    Specifier (4)
+                      TYPE: float
+                    DecList (4)
+                      Dec (4)
+                        VarDec (4)
+                          ID: d
+                        ASSIGNOP
+                        Exp (4)
+                          FLOAT: 2.500000
+                    SEMI
+                  DefList
+              StmtList (5)
+                Stmt (5)
+                  Exp (5)
+                    Exp (5)
+                      ID: a
+                    ASSIGNOP
+                    Exp (5)
+                      Exp (5)
+                        ID: b
+                      PLUS
+                      Exp (5)
+                        Exp (5)
+                          ID: c
+                        LB
+                        Exp (5)
+                          INT: 0
+                        RB
+                  SEMI
+                StmtList
+              RC
+          StmtList (7)
+            Stmt (7)
+              RETURN
+              Exp (7)
+                INT: 0
+              SEMI
+            StmtList
+        RC
+    ExtDefList
