@@ -1,5 +1,5 @@
-Error type A at line 14: MALFORMED_COMMENT "*/"
-Error type A at line 16: NESTED_COMMENT "/*"
-Error type A at line 16: NESTED_COMMENT "/*"
-Error type A at line 24: UNTERMINATED_COMMENT (started at line 20)
+Error type A at Line 14: MALFORMED_COMMENT "*/"
+Error type A at Line 16: NESTED_COMMENT "/*"
+Error type A at Line 16: NESTED_COMMENT "/*"
+Error type A at Line 24: UNTERMINATED_COMMENT (started at Line 20)
 Error type B at line 24:Missing '}'

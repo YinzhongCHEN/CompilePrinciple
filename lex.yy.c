@@ -931,7 +931,7 @@ YY_RULE_SETUP
 case 4:
 YY_RULE_SETUP
 #line 84 "lex.l"
-{hasFault = 1;printf("Error type A at line %d: MALFORMED_COMMENT \"%s\"\n", yylineno, yytext);}
+{hasFault = 1;printf("Error type A at Line %d: MALFORMED_COMMENT \"%s\"\n", yylineno, yytext);}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
@@ -941,7 +941,7 @@ YY_RULE_SETUP
 case 6:
 YY_RULE_SETUP
 #line 86 "lex.l"
-{hasFault = 1;printf("Error type A at line %d: NESTED_COMMENT \"%s\"\n", yylineno, yytext);}
+{hasFault = 1;printf("Error type A at Line %d: NESTED_COMMENT \"%s\"\n", yylineno, yytext);}
 	YY_BREAK
 case 7:
 /* rule 7 can match eol */
@@ -964,7 +964,7 @@ case YY_STATE_EOF(COMMENT):
 #line 91 "lex.l"
 {
 	hasFault = 1;
-	printf("Error type A at line %d: UNTERMINATED_COMMENT (started at line %d)\n", yylineno, comment_begin);
+	printf("Error type A at Line %d: UNTERMINATED_COMMENT (started at Line %d)\n", yylineno, comment_begin);
 	BEGIN(INITIAL);
 	yyterminate();
 }
@@ -1004,17 +1004,17 @@ RET_TOK(WHILE);
 case 16:
 YY_RULE_SETUP
 #line 105 "lex.l"
-{hasFault = 1;printf("Error type A at line %d: INT_HEX_ERROR \"%s\"\n",yylineno,yytext);}
+{hasFault = 1;printf("Error type A at Line %d: INT_HEX_ERROR \"%s\"\n",yylineno,yytext);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 106 "lex.l"
-{hasFault = 1;printf("Error type A at line %d: INT_OCT_ERROR \"%s\"\n",yylineno,yytext);}
+{hasFault = 1;printf("Error type A at Line %d: INT_OCT_ERROR \"%s\"\n",yylineno,yytext);}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 107 "lex.l"
-{hasFault = 1;printf("Error type A at line %d: INT_BIN_ERROR \"%s\"\n",yylineno,yytext);}
+{hasFault = 1;printf("Error type A at Line %d: INT_BIN_ERROR \"%s\"\n",yylineno,yytext);}
 	YY_BREAK
 /*数字类型表示*/
 case 19:
@@ -1130,20 +1130,20 @@ RET_TOK(ID);
 case 40:
 YY_RULE_SETUP
 #line 135 "lex.l"
-{hasFault = 1;printf("Error type A at line %d: mysterious charachter \"%s\"\n",yylineno,yytext);}
+{hasFault = 1;printf("Error type A at Line %d: Mysterious charachter \"%s\"\n",yylineno,yytext);}
 	YY_BREAK
 /*科学计数法错误 */
 case 41:
 /* rule 41 can match eol */
 YY_RULE_SETUP
 #line 137 "lex.l"
-{hasFault = 1;printf("Error type A at line %d: SCIENCE_ERROR_INCOMPLETE \"%s\"\n", yylineno, yytext);}
+{hasFault = 1;printf("Error type A at Line %d: SCIENCE_ERROR_INCOMPLETE \"%s\"\n", yylineno, yytext);}
 	YY_BREAK
 case 42:
 /* rule 42 can match eol */
 YY_RULE_SETUP
 #line 138 "lex.l"
-{hasFault = 1;printf("Error type A at line %d: SCIENCE_ERROR_ILLEGAL \"%s\"\n", yylineno, yytext);}
+{hasFault = 1;printf("Error type A at Line %d: SCIENCE_ERROR_ILLEGAL \"%s\"\n", yylineno, yytext);}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
