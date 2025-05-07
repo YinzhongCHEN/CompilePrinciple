@@ -1,4 +1,4 @@
-//WHILE 后缺语句体s
+//WHILE 后缺语句体
 int main() {
     while (i < 10)
 }

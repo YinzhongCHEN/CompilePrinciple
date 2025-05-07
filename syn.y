@@ -1,5 +1,5 @@
 %{
-#include<unistd.h>
+//#include<unistd.h>
 #include<stdio.h>   
 #include "synTree.h"
   #define CREATE_NODE(DEST, LABEL, CNT, ...)      \
@@ -75,7 +75,7 @@ Tag:ID                                      {CREATE_NODE($$,"Tag",1,$1);}
 VarDec:ID                                   {CREATE_NODE($$,"VarDec",1,$1);}
 	|VarDec LB INT RB                       {CREATE_NODE($$,"VarDec",4,$1,$2,$3,$4);}
 	|VarDec LB error RB                     {yyerror("Array size must be integer");}/*数组变量 应该出现整数 但未出现整数*/
-	|VarDec LB INT error                    {yyerror("Missing ']' after array size");}
+	|VarDec LB INT error                    {yyerror("Missing ']' after array size");}/*缺少]*/
 	;
 FunDec:ID LP VarList RP                     {CREATE_NODE($$,"FunDec",4,$1,$2,$3,$4);}
 	|ID LP RP                               {CREATE_NODE($$,"FunDec",3,$1,$2,$3);}
@@ -89,7 +89,7 @@ VarList:ParamDec COMMA VarList              {CREATE_NODE($$,"VarList",3,$1,$2,$3
 ParamDec:Specifier VarDec                   {CREATE_NODE($$,"ParamDec",2,$1,$2);}
     |Specifier error                        {yyerror("Missing parameter name");}/*缺少参数名*/
     ;
-/*Statement  报错修改完成*/ 
+/*Statement*/ 
 CompSt:LC DefList StmtList RC                {CREATE_NODE($$,"CompSt",4,$1,$2,$3,$4);}
 	|LC DefList StmtList error               {yyerror("Missing '}'");}                 /*缺少右侧}*/
 	;
@@ -108,7 +108,7 @@ Stmt:Exp SEMI                                {CREATE_NODE($$,"Stmt",2,$1,$2);}
 	|WHILE LP Exp RP error                   {yyerror("Missing statement");}           /*while后缺语句体*/
 	|Exp error                               {yyerror("Missing \";\"");}               /*缺;*/
     ;
-/*Local Definitions   报错修改完成*/
+/*Local Definitions*/
 DefList:Def DefList          {CREATE_NODE($$,"DefList",2,$1,$2);}
 	|                        {CREATE_NODE($$,"DefList",0,-1);}
 	;
@@ -122,7 +122,7 @@ Dec:VarDec                   {CREATE_NODE($$,"Dec",1,$1);}
 	|VarDec ASSIGNOP Exp     {CREATE_NODE($$,"Dec",3,$1,$2,$3);}
 	|VarDec ASSIGNOP error   {yyerror("Missing expression after '='");}/*等号后缺表达式*/
 	;
-/*Expressions   报错修改完成*/
+/*Expressions*/
 Exp:Exp ASSIGNOP Exp    {CREATE_NODE($$,"Exp",3,$1,$2,$3);}
     // |error ASSIGNOP Exp {yyerror("Missing expression before '='");}
     |Exp ASSIGNOP error {yyerror("Missing expression after '='");}/*=后缺少表达式*/

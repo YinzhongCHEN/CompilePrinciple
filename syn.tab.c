@@ -68,7 +68,7 @@
 /* First part of user prologue.  */
 #line 1 "syn.y"
 
-#include<unistd.h>
+//#include<unistd.h>
 #include<stdio.h>   
 #include "synTree.h"
   #define CREATE_NODE(DEST, LABEL, CNT, ...)      \
