@@ -44,50 +44,50 @@ int yylex(void);
 // /*%expect  6
 %%
 /*High-level Definitions*/
-Program:ExtDefList {CREATE_NODE($$,"Program",1,$1);}
+Program:ExtDefList                  {CREATE_NODE($$,"Program",1,$1);}
     ;
-ExtDefList:ExtDef ExtDefList {CREATE_NODE($$,"ExtDefList",2,$1,$2);}
-	| {CREATE_NODE($$,"ExtDefList",0,-1);}
+ExtDefList:ExtDef ExtDefList        {CREATE_NODE($$,"ExtDefList",2,$1,$2);}
+	|                               {CREATE_NODE($$,"ExtDefList",0,-1);}
 	;
 ExtDef:Specifier ExtDecList SEMI    {CREATE_NODE($$,"ExtDef",3,$1,$2,$3);}    
-	|Specifier SEMI	{CREATE_NODE($$,"ExtDef",2,$1,$2);}
-	|Specifier FunDec CompSt	{CREATE_NODE($$,"ExtDef",3,$1,$2,$3);} 
+	|Specifier SEMI	                {CREATE_NODE($$,"ExtDef",2,$1,$2);}
+	|Specifier FunDec CompSt	    {CREATE_NODE($$,"ExtDef",3,$1,$2,$3);} 
 	;
-ExtDecList:VarDec {CREATE_NODE($$,"ExtDecList",1,$1);}
-	|VarDec COMMA ExtDecList {CREATE_NODE($$,"ExtDecList",3,$1,$2,$3);}
-    |VarDec error ExtDecList {yyerror("Missing \",\"");}/*期望出现逗号但未出现*/
+ExtDecList:VarDec                   {CREATE_NODE($$,"ExtDecList",1,$1);}
+	|VarDec COMMA ExtDecList        {CREATE_NODE($$,"ExtDecList",3,$1,$2,$3);}
+    |VarDec error ExtDecList        {yyerror("Missing \",\"");}/*期望出现逗号但未出现*/
 	;
 /*Specifier*/
-Specifier:StructSpecifier {CREATE_NODE($$,"Specifier",1,$1);}
-	|TYPE {CREATE_NODE($$,"Specifier",1,$1);}
+Specifier:StructSpecifier           {CREATE_NODE($$,"Specifier",1,$1);}
+	|TYPE                           {CREATE_NODE($$,"Specifier",1,$1);}
 	//|error {yyerror("Error: Unsupported type");}
 	;
 StructSpecifier:STRUCT OptTag LC DefList RC {CREATE_NODE($$,"StructSpecifier",5,$1,$2,$3,$4,$5);}
-	|STRUCT Tag {CREATE_NODE($$,"StructSpecifier",2,$1,$2);}
-	|STRUCT OptTag LC DefList error {yyerror("Missing '}'");}
+	|STRUCT Tag                             {CREATE_NODE($$,"StructSpecifier",2,$1,$2);}
+	|STRUCT OptTag LC DefList error         {yyerror("Missing '}'");}
 	;
-OptTag:ID {CREATE_NODE($$,"OptTag",1,$1);}
-	|{CREATE_NODE($$,"OptTag",0,-1);}
+OptTag:ID                                   {CREATE_NODE($$,"OptTag",1,$1);}
+	|                                       {CREATE_NODE($$,"OptTag",0,-1);}
 	;
-Tag:ID {CREATE_NODE($$,"Tag",1,$1);}
+Tag:ID                                      {CREATE_NODE($$,"Tag",1,$1);}
 	;
 /*Declarators*/
-VarDec:ID {CREATE_NODE($$,"VarDec",1,$1);}
-	|VarDec LB INT RB {CREATE_NODE($$,"VarDec",4,$1,$2,$3,$4);}
-	|VarDec LB error RB {yyerror("Array size must be integer");}/*数组变量 应该出现整数 但未出现整数*/
-	|VarDec LB INT error    { yyerror("Missing ']' after array size");}
+VarDec:ID                                   {CREATE_NODE($$,"VarDec",1,$1);}
+	|VarDec LB INT RB                       {CREATE_NODE($$,"VarDec",4,$1,$2,$3,$4);}
+	|VarDec LB error RB                     {yyerror("Array size must be integer");}/*数组变量 应该出现整数 但未出现整数*/
+	|VarDec LB INT error                    {yyerror("Missing ']' after array size");}
 	;
-FunDec:ID LP VarList RP {CREATE_NODE($$,"FunDec",4,$1,$2,$3,$4);}
-	|ID LP RP {CREATE_NODE($$,"FunDec",3,$1,$2,$3);}
-    |ID LP error RP {yyerror("invalid parameter list");}/*解析函数声明的形参列表遇到错误*/
-	|ID LP VarList error {yyerror("Missing ')' after parameter list in function definition");}/*参数列表缺右括号*/
+FunDec:ID LP VarList RP                     {CREATE_NODE($$,"FunDec",4,$1,$2,$3,$4);}
+	|ID LP RP                               {CREATE_NODE($$,"FunDec",3,$1,$2,$3);}
+    |ID LP error RP                         {yyerror("invalid parameter list");}/*解析函数声明的形参列表遇到错误*/
+	|ID LP VarList error                    {yyerror("Missing ')' after parameter list in function definition");}/*参数列表缺右括号*/
 	//|ID LP error {yyerror("Missing 'parameter list' and ')' in function definition");}/*完全缺少参数列表*/
 	;
-VarList:ParamDec COMMA VarList {CREATE_NODE($$,"VarList",3,$1,$2,$3);}
-	|ParamDec {CREATE_NODE($$,"VarList",1,$1);}
+VarList:ParamDec COMMA VarList              {CREATE_NODE($$,"VarList",3,$1,$2,$3);}
+	|ParamDec                               {CREATE_NODE($$,"VarList",1,$1);}
 	;
-ParamDec:Specifier VarDec {CREATE_NODE($$,"ParamDec",2,$1,$2);}
-    |Specifier error {yyerror("Missing parameter name");}/*缺少参数名*/
+ParamDec:Specifier VarDec                   {CREATE_NODE($$,"ParamDec",2,$1,$2);}
+    |Specifier error                        {yyerror("Missing parameter name");}/*缺少参数名*/
     ;
 /*Statement  报错修改完成*/ 
 CompSt:LC DefList StmtList RC                {CREATE_NODE($$,"CompSt",4,$1,$2,$3,$4);}

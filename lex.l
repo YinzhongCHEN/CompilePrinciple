@@ -136,12 +136,9 @@ SCIENCE_ERROR_ILLEGAL (\.[Ee][-+]?[0-9]+)|(([0-9]+\.[0-9]*)|([0-9]*\.[0-9]+)|{IN
 {SCIENCE_ERROR_INCOMPLETE} {hasFault = 1;printf("Error type A at line %d: SCIENCE_ERROR_INCOMPLETE \"%s\"\n", yylineno, yytext);}
 {SCIENCE_ERROR_ILLEGAL} {hasFault = 1;printf("Error type A at line %d: SCIENCE_ERROR_ILLEGAL \"%s\"\n", yylineno, yytext);}
 %%
-/*第四部分 函数 function*/
+/*第四部分*/
 int yywrap()
 {
-	/*此函数必须由用户提供,或者声明 %option noyywrap
-	当词法分析程序遇到文件结尾时，它调用例程yywrap()来找出下一步要做什么
-	如果返回0，扫描程序继续扫描，如果返回1，扫描程序就返回报告文件结尾*/
     return 1;
 }
 

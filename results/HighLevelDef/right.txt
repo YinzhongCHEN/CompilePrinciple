@@ -1,2 +1,0 @@
-Error type B at line 8:Missing expression after '+'
-Error type B at line 8:Missing expression in return

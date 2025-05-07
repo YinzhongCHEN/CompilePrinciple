@@ -1,8 +1,4 @@
-# **********************************************************
-# Makefile: Build (Bison→Flex→GCC) + Run tests/**/*.c → results/**
-# **********************************************************
-
-# ---------- 源文件 / 目标 ----------
+# 源文件和目标文件
 BISON_SRC   := syn.y
 FLEX_SRC    := lex.l
 C_SRC       := synTree.c
@@ -14,24 +10,20 @@ BISON       := bison
 BISON_OPTS  := -d
 FLEX        := flex
 
-# ---------- 测试目录 ----------
+# 测试文件和结果输出目录
 TEST_DIR    := tests
 RESULT_DIR  := results
 TEST_EXT    := .c
 OUT_EXT     := .txt
 
-# ---------- 收集全部 .c 测试文件 ----------
+# 收集所有待测试的.c文件
 TEST_SRC  := $(shell find $(TEST_DIR) -type f -name '*$(TEST_EXT)')
 TEST_OUT  := $(patsubst $(TEST_DIR)/%$(TEST_EXT),\
                         $(RESULT_DIR)/%$(OUT_EXT),\
                         $(TEST_SRC))
-
-# ---------- 伪目标 ----------
 .PHONY: all build test clean
-
-all: build                     # 默认只编译
-
-# ---------------- 构建 ----------------
+all: build                     
+# build 过程
 build: $(TARGET)
 
 syn.tab.c syn.tab.h: $(BISON_SRC)
@@ -43,24 +35,21 @@ lex.yy.c: $(FLEX_SRC)
 $(TARGET): syn.tab.c lex.yy.c $(C_SRC)
 	$(CC) -o $@ syn.tab.c lex.yy.c $(C_SRC) $(LIBS)
 
-# ---------------- 测试 ----------------
+# 执行测试文件并输出到对应目录
 test: build $(TEST_OUT)
 	@echo
 	@echo "🎉  All tests finished.  See '$(RESULT_DIR)/' for outputs."
-
-# ★★★★★ 关键：先保证根目录存在 ★★★★★
 $(RESULT_DIR):
 	@mkdir -p $@
 
-# results/…/foo.txt ← tests/…/foo.c
-# “| $(RESULT_DIR)” 表示 **顺序限定**：先建根目录再执行命令
+# 将测试文件的输出保存到.txt文件中并输出
 results/%.txt : tests/%.c | $(RESULT_DIR)
 	@echo "▶ $<"
 	@mkdir -p $(dir $@)
 	@./$(TARGET) $< > $@ 2>&1
 	@echo "   ↳ $@"
 
-# ---------------- 清理 ----------------
+# 清除所有生成的文件和代码
 clean:
 	@echo "🧹  Cleaning..."
 	@rm -f syn.tab.[ch] lex.yy.c $(TARGET)
