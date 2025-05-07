@@ -3,7 +3,7 @@ extern void yyrestart(FILE *inputfile);
 extern int yyparse(void);
 // 用于遍历
 int i;
-
+//语法树创建
 Ast newAst(char *name, int num, ...)
 {
     va_list args;
@@ -52,7 +52,7 @@ Ast newAst(char *name, int num, ...)
     return father;
 }
 
-// 父节点->左子节点->右子节点....
+// 先序遍历语法树并且输出各个节点行号和类型
 void Preorder(Ast ast, int level) {
     //if (!ast || ast->line == -1) return;
     if (!ast ) return;
@@ -108,9 +108,7 @@ void setChildTag(tnode node)
     }
 }
 
-// 主函数 扫描文件并且分析
-// 为bison会自己调用yylex()，所以在main函数中不需要再调用它了
-// bison使用yyparse()进行语法分析，所以需要我们在main函数中调用yyparse()和yyrestart()
+// 主函数 扫描文件并分析
 int main(int argc, char **argv)
 {
     int j;
