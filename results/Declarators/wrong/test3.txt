@@ -1,1 +1,1 @@
-Error type B at line 2:Missing ')' after parameter list in function definition
+Error type B at line 2:Missing ')' after parameter list in function definition.

@@ -80,16 +80,16 @@ SCIENCE_ERROR_ILLEGAL (\.[Ee][-+]?[0-9]+)|(([0-9]+\.[0-9]*)|([0-9]*\.[0-9]+)|{IN
 {SPACE} {}
 {LINE_COMMENT} {}
 "/*" {comment_begin = yylineno;BEGIN(COMMENT);}
-"*/" {hasFault = 1;printf("Error type A at Line %d: MALFORMED_COMMENT \"%s\"\n", yylineno, yytext);}
+"*/" {hasFault = 1;printf("Error type A at Line %d: MALFORMED_COMMENT \"%s\".\n", yylineno, yytext);}
 <COMMENT>"*/" {BEGIN(INITIAL);}
-<COMMENT>"/*" {hasFault = 1;printf("Error type A at Line %d: NESTED_COMMENT \"%s\"\n", yylineno, yytext);}
+<COMMENT>"/*" {hasFault = 1;printf("Error type A at Line %d: NESTED_COMMENT \"%s\".\n", yylineno, yytext);}
 <COMMENT>\n {}
 <COMMENT>[^/*\n]+ {}
 <COMMENT>[/*] {}
  /*未终结注释错误*/
 <COMMENT><<EOF>> {
 	hasFault = 1;
-	printf("Error type A at Line %d: UNTERMINATED_COMMENT (started at Line %d)\n", yylineno, comment_begin);
+	printf("Error type A at Line %d: UNTERMINATED_COMMENT (started at Line %d).\n", yylineno, comment_begin);
 	BEGIN(INITIAL);
 	yyterminate();
 }
@@ -101,9 +101,9 @@ SCIENCE_ERROR_ILLEGAL (\.[Ee][-+]?[0-9]+)|(([0-9]+\.[0-9]*)|([0-9]*\.[0-9]+)|{IN
 {ELSE}          RET_TOK(ELSE);
 {WHILE}         RET_TOK(WHILE);
  /*数字类型错误*/
-{INT_HEX_ERROR} {hasFault = 1;printf("Error type A at Line %d: INT_HEX_ERROR \"%s\"\n",yylineno,yytext);}
-{INT_OCT_ERROR} {hasFault = 1;printf("Error type A at Line %d: INT_OCT_ERROR \"%s\"\n",yylineno,yytext);}
-{INT_BIN_ERROR} {hasFault = 1;printf("Error type A at Line %d: INT_BIN_ERROR \"%s\"\n",yylineno,yytext);}
+{INT_HEX_ERROR} {hasFault = 1;printf("Error type A at Line %d: INT_HEX_ERROR \"%s\".\n",yylineno,yytext);}
+{INT_OCT_ERROR} {hasFault = 1;printf("Error type A at Line %d: INT_OCT_ERROR \"%s\".\n",yylineno,yytext);}
+{INT_BIN_ERROR} {hasFault = 1;printf("Error type A at Line %d: INT_BIN_ERROR \"%s\".\n",yylineno,yytext);}
  /*数字类型表示*/
 {INT}           RET_TOK(INT);
 {FLOAT}         RET_TOK(FLOAT);
@@ -131,10 +131,10 @@ SCIENCE_ERROR_ILLEGAL (\.[Ee][-+]?[0-9]+)|(([0-9]+\.[0-9]*)|([0-9]*\.[0-9]+)|{IN
  /*标识符*/
 {ID}            RET_TOK(ID);
  /*错误*/
-{AERROR} {hasFault = 1;printf("Error type A at Line %d: Mysterious charachter \"%s\"\n",yylineno,yytext);}
+{AERROR} {hasFault = 1;printf("Error type A at Line %d: Mysterious charachter \"%s\".\n",yylineno,yytext);}
  /*科学计数法错误 */
-{SCIENCE_ERROR_INCOMPLETE} {hasFault = 1;printf("Error type A at Line %d: SCIENCE_ERROR_INCOMPLETE \"%s\"\n", yylineno, yytext);}
-{SCIENCE_ERROR_ILLEGAL} {hasFault = 1;printf("Error type A at Line %d: SCIENCE_ERROR_ILLEGAL \"%s\"\n", yylineno, yytext);}
+{SCIENCE_ERROR_INCOMPLETE} {hasFault = 1;printf("Error type A at Line %d: SCIENCE_ERROR_INCOMPLETE \"%s\".\n", yylineno, yytext);}
+{SCIENCE_ERROR_ILLEGAL} {hasFault = 1;printf("Error type A at Line %d: SCIENCE_ERROR_ILLEGAL \"%s\".\n", yylineno, yytext);}
 %%
 /*第四部分*/
 int yywrap()

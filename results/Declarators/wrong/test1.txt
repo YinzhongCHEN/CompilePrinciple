@@ -1,1 +1,1 @@
-Error type B at line 3:Array size must be integer
+Error type B at line 3:Array size must be integer.

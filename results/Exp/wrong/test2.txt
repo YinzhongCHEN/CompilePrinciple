@@ -1,2 +1,2 @@
-Error type B at line 5:Missing expression after '&&'
-Error type B at line 6:Missing expression after '||'
+Error type B at line 5:Missing expression after '&&'.
+Error type B at line 6:Missing expression after '||'.

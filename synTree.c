@@ -93,7 +93,7 @@ void yyerror(char *msg)
         }
     hasFault = 1;
     //fprintf(stderr, "Error type B at Line %d: %s\n", yylineno, msg);
-    printf("Error type B at line %d:%s\n",yylineno,msg);
+    printf("Error type B at line %d:%s.\n",yylineno,msg);
 }
 // 设置节点打印状态 该节点为子节点
 void setChildTag(tnode node)
