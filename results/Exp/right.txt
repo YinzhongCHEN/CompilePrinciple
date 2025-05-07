@@ -9,7 +9,31 @@ Program (2)
         RP
       CompSt (2)
         LC
-        DefList
+        DefList (3)
+          Def (3)
+            Specifier (3)
+              TYPE: int
+            DecList (3)
+              Dec (3)
+                VarDec (3)
+                  ID: x
+              COMMA
+              DecList (3)
+                Dec (3)
+                  VarDec (3)
+                    ID: y
+                  ASSIGNOP
+                  Exp (3)
+                    INT: 1
+                COMMA
+                DecList (3)
+                  Dec (3)
+                    VarDec (3)
+                      ID: z
+                    ASSIGNOP
+                    Exp (3)
+                      INT: 2
+            SEMI
         StmtList (4)
           Stmt (4)
             Exp (4)
@@ -130,6 +154,4 @@ Program (2)
                                 Exp (22)
                                   INT: 0
                                 SEMI
-                              StmtList
         RC
-    ExtDefList

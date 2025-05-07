@@ -54,8 +54,8 @@ Ast newAst(char *name, int num, ...)
 
 // 先序遍历语法树并且输出各个节点行号和类型
 void Preorder(Ast ast, int level) {
-    //if (!ast || ast->line == -1) return;
-    if (!ast ) return;
+    if (!ast || ast->line == -1) return;
+    // if (!ast ) return;
 
     // 缩进
     for (int k = 0; k < level; ++k) printf("  ");

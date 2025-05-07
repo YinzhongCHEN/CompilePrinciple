@@ -32,7 +32,6 @@ Program (1)
                       VarDec (3)
                         ID: a
                   SEMI
-                DefList
               RC
           ExtDecList (3)
             VarDec (3)
@@ -49,26 +48,3 @@ Program (1)
               VarDec (4)
                 ID: s2
             SEMI
-          ExtDefList (5)
-            ExtDef (5)
-              Specifier (5)
-                StructSpecifier (5)
-                  STRUCT
-                  OptTag
-                  LC
-                  DefList (5)
-                    Def (5)
-                      Specifier (5)
-                        TYPE: float
-                      DecList (5)
-                        Dec (5)
-                          VarDec (5)
-                            ID: v
-                      SEMI
-                    DefList
-                  RC
-              ExtDecList (5)
-                VarDec (5)
-                  ID: anon
-              SEMI
-            ExtDefList

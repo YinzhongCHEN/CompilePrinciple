@@ -9,76 +9,66 @@ Program (1)
         RP
       CompSt (1)
         LC
-        DefList
-        StmtList (2)
-          Stmt (2)
-            CompSt (2)
-              LC
-              DefList (3)
-                Def (3)
-                  Specifier (3)
-                    TYPE: int
-                  DecList (3)
-                    Dec (3)
-                      VarDec (3)
-                        ID: a
-                    COMMA
-                    DecList (3)
-                      Dec (3)
-                        VarDec (3)
-                          ID: b
-                        ASSIGNOP
-                        Exp (3)
-                          INT: 5
-                      COMMA
-                      DecList (3)
-                        Dec (3)
-                          VarDec (3)
-                            VarDec (3)
-                              ID: c
-                            LB
-                            INT: 3
-                            RB
-                  SEMI
-                DefList (4)
-                  Def (4)
-                    Specifier (4)
-                      TYPE: float
-                    DecList (4)
-                      Dec (4)
-                        VarDec (4)
-                          ID: d
-                        ASSIGNOP
-                        Exp (4)
-                          FLOAT: 2.500000
-                    SEMI
-                  DefList
-              StmtList (5)
-                Stmt (5)
-                  Exp (5)
-                    Exp (5)
-                      ID: a
-                    ASSIGNOP
-                    Exp (5)
-                      Exp (5)
-                        ID: b
-                      PLUS
-                      Exp (5)
-                        Exp (5)
-                          ID: c
-                        LB
-                        Exp (5)
-                          INT: 0
-                        RB
-                  SEMI
-                StmtList
-              RC
-          StmtList (7)
-            Stmt (7)
+        DefList (2)
+          Def (2)
+            Specifier (2)
+              TYPE: int
+            DecList (2)
+              Dec (2)
+                VarDec (2)
+                  ID: a
+              COMMA
+              DecList (2)
+                Dec (2)
+                  VarDec (2)
+                    ID: b
+                  ASSIGNOP
+                  Exp (2)
+                    INT: 5
+                COMMA
+                DecList (2)
+                  Dec (2)
+                    VarDec (2)
+                      VarDec (2)
+                        ID: c
+                      LB
+                      INT: 3
+                      RB
+            SEMI
+          DefList (3)
+            Def (3)
+              Specifier (3)
+                TYPE: float
+              DecList (3)
+                Dec (3)
+                  VarDec (3)
+                    ID: d
+                  ASSIGNOP
+                  Exp (3)
+                    FLOAT: 2.500000
+              SEMI
+        StmtList (4)
+          Stmt (4)
+            Exp (4)
+              Exp (4)
+                ID: a
+              ASSIGNOP
+              Exp (4)
+                Exp (4)
+                  ID: b
+                PLUS
+                Exp (4)
+                  Exp (4)
+                    ID: c
+                  LB
+                  Exp (4)
+                    INT: 0
+                  RB
+            SEMI
+          StmtList (5)
+            Stmt (5)
               RETURN
-              Exp (7)
+              Exp (5)
                 INT: 0
               SEMI
-            StmtList
         RC
-    ExtDefList
