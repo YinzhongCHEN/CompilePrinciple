@@ -6,7 +6,7 @@ Flex: 2.6.4
 Bison: 3.5.1  
 ## 克隆项目
 ```bash
-git https://github.com/YinzhongCHEN/CompilePrinciple.git  
+git clone https://github.com/YinzhongCHEN/CompilePrinciple.git  
 cd CompilePrinciple
 ```
 ## 使用makefile构建
