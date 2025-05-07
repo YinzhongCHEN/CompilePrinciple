@@ -1,0 +1,2 @@
+Error type B at line 5:Missing "]"
+Error type B at line 6:Missing ";"
